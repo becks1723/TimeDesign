@@ -1,0 +1,13 @@
+{
+    "name": "5bits/time-design",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "TimeDesign\\": "src/"
+        }
+    },
+    "require": {
+        "twig/twig": "^3.4",
+        "jasig/phpcas": "^1.6"
+    }
+}

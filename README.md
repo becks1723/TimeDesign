@@ -1,4 +1,4 @@
-# TimeDesign
+# Time Design
 
 This is Time Design, the project created by 5Bits.
 
