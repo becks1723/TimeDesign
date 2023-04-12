@@ -1,0 +1,161 @@
+<div id="modal-backdrop"></div>
+
+<button id="help" onclick="showTutorial()">
+  <img id="help-btn" src="/TimeDesign/images/help-btn.png" alt="Help button">
+</button>
+
+<div id="new-user-modal" style="display: none;">
+  <div class="modal-head">
+    <h1>Welcome to TimeDesign!</h1>
+    <button class="close" onclick="closeModal('tutorial')">X</button>
+  </div>
+
+  <div id="modal-content">
+    <h2>What is TimeDesign?</h2>
+    <p>Time Design is a Workload Calculation Tool for students.</p> <br>
+    <h2>How to Use</h2>
+    <p>The <b>Home</b> page is for students to input their desired future schedules to calculate the workload.
+    <br>1. Click the <img src="/TimeDesign/images/add-button.png" class="new-user-img" alt="Add">
+    button to add your classes, jobs, and extracurriculars.
+    <br>2. Click the <img src="/TimeDesign/images/calculate-schedule.png" class="new-user-img" alt="Calculate your schedule">
+    to calculate the workload. <br><br><br>
+    The <b>Search</b> page is for students to search for all courses, jobs, and extracurriculars. <br><br><br>
+    To add your own review, <b>you must be logged in</b>. <br>
+    The <b>Input</b> page is for students to input their reviews for their courses, jobs, and extracurriculars. <br>
+    1. Click on the <b>Course</b>, <b>Job</b>, or <b>Extracurricular</b> tab to add the respective review.
+    <br> 2. Input all required information.
+    <br> 3. Click <img src="/TimeDesign/images/submit-button.png" class="new-user-img" alt="Submit">!</p>
+  </div>
+
+  <button onclick="closeModal('tutorial')" id="get-started">Get started!</button>
+</div>
+
+<header id="greeting">
+  <h1>Hello, Student!</h1>
+  <h2>Input Your Current or Planned Schedule</h2>
+</header>
+
+<!--MMain section-->
+<section id="cards">
+  <!--Individual cards-->
+  <div class="card">
+    <div class="card-body">
+      <h3 class="card-title">Classes</h3>
+      <ul class="card-items" id="class-items">
+        <li class="item empty">No classes added yet!</li>
+      </ul>
+      <div class="add-new-course-btn" id="add-new-class">
+        <img id="add-btn1" src="/TimeDesign/images/add-button.png" alt="Add button icon">
+        <h4>Add new course</h4>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="card">
+    <div class="card-body">
+      <h3 class="card-title">Part/Full-Time Jobs</h3>
+      <ul class="card-items" id="job-items">
+        <li class="item empty">No jobs added yet!</li>
+      </ul>
+      <div class="add-new-course-btn" id="add-new-job">
+        <img id="add-btn2" src="/TimeDesign/images/add-button.png" alt="Add button icon">
+        <h4>Add new job</h4>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h3 class="card-title">Extracurricular Activities</h3>
+      <ul class="card-items" id="club-items">
+        <li class="item empty">No activities added yet!</li>
+      </ul>
+      <div class="add-new-course-btn" id="add-new-club">
+        <img id="add-btn3" src="/TimeDesign/images/add-button.png" alt="Add button icon">
+        <h4>Add new activity</h4>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--Modals for adding classes/jobs/clubs-->
+<div id="courses-modal" class="popup">
+  <div class="modal-head">
+    <h3>Add class to schedule</h3>
+    <button class="close" onclick="closeModal('class')">X</button>
+  </div>
+  <div class="inp">
+    <label for="cl-srch">Search for class by name:</label>
+    <input name="srch" id="cl-srch">
+  </div>
+  <button type="button" class="add" onclick="searchClass()">Search</button>
+  <div id="cl-res"></div>
+</div>
+
+<div id="jobs-modal" class="popup">
+  <div class="modal-head">
+    <h3>Add job to schedule</h3>
+    <button class="close" onclick="closeModal('job')">X</button>
+  </div>
+  <div class="inp">
+    <label for="jb-srch">Search for job by name:</label>
+    <input name="srch" id="jb-srch">
+  </div>
+  <button type="button" class="add" onclick="searchJobs()">Search</button>
+  <div id="jb-res"></div>
+</div>
+
+<div id="clubs-modal" class="popup">
+  <div class="modal-head">
+    <h3>Add activity to schedule</h3>
+    <button class="close" onclick="closeModal('club')">X</button>
+  </div>
+  <div class="inp">
+    <label for="ec-srch">Search for activity by name:</label>
+    <input name="srch" id="ec-srch">
+  </div>
+  <button type="button" class="add" onclick="searchClubs()">Search</button>
+  <div id="ec-res"></div>
+</div>
+
+<!---->
+<div id="submit-btn">
+  <button class="btn btn-primary" type="submit" onclick="waitAnimation();">Calculate your schedule</button>
+</div>
+
+<div id="load-animation"></div>
+<section id="result-modals">
+  <h5>Your Semester Report</h5>
+  <h6>Calculated weekly estimate: <strong id="weekly_total">72</strong> Hours/Week</h6>
+  <div class="result">
+    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+    <div class="breakdown">
+      <h6>Classes, Lectures &amp; Homework</h6>
+      <p class="est">Weekly estimate for your classes is: <strong id="class_est">50</strong> Hours</p>
+      <p>Lectures: <strong id="lecture_est">16</strong> Hours/Week</p>
+      <p>Homework: <strong id="hw_est">14</strong> Hours/Week</p>
+      <p>Study: <strong id="study_est">20</strong> Hours/Week</p>
+    </div>
+  </div>
+
+  <div class="result">
+    <div id="chartContainer1" style="height: 300px; width: 100%;"></div>
+    <div class="breakdown">
+      <h6>Full or Part-Time Jobs</h6>
+
+      <p class="est">Weekly estimate for your full or part-time jobs is: <strong id="job_est">12</strong> Hours</p>
+      <div id="job_p"></div>
+    </div>
+  </div>
+
+  <div class="result">
+    <div id="chartContainer2" style="height: 300px; width: 100%;"></div>
+    <div class="breakdown">
+      <h6>Miscellaneous Extracurricular Activities</h6>
+      <p class="est">Weekly estimate for your extracurriculars is: <strong id="ec_est">20</strong> Hours</p>
+      <div id="ec_p"></div>
+    </div>
+  </div>
+</section>

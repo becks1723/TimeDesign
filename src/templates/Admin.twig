@@ -1,0 +1,56 @@
+<div class="container">
+    <h1 class="text-center">Administration</h1>
+    <h4>Pending Courses</h4>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for course in courses %}
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ course['school_course_id'] }}: {{ course['name'] }}</h5>
+                        <form method="POST" action="/TimeDesign/admin/verify_course">
+                            <input type="hidden" name="xsrf_token" value="{{ xsrf_token }}">
+                            <input type="hidden" name="course_id" value="{{ course['id'] }}">
+                            <button class="btn btn-success" type="submit">Verify</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <br>
+    <h4>Pending Jobs</h4>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for job in jobs %}
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ job['company'] }}: {{ job['name'] }}</h5>
+                        <form method="POST" action="/TimeDesign/admin/verify_job">
+                            <input type="hidden" name="xsrf_token" value="{{ xsrf_token }}">
+                            <input type="hidden" name="job_id" value="{{ job['id'] }}">
+                            <button class="btn btn-success" type="submit">Verify</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <br>
+    <h4>Pending Clubs</h4>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for club in clubs %}
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ club['name'] }}</h5>
+                        <form method="POST" action="/TimeDesign/admin/verify_club">
+                            <input type="hidden" name="xsrf_token" value="{{ xsrf_token }}">
+                            <input type="hidden" name="club_id" value="{{ club['id'] }}">
+                            <button class="btn btn-success" type="submit">Verify</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>

@@ -1,0 +1,86 @@
+<div class="container">
+    <h1 class="text-center">Search</h1>
+    <form method="GET">
+        <label class="form-label" for="course-name">Search a Course/Job/Activity Name:</label>
+        <input class="form-control" id="course-name" name="query" value="{{ query }}">
+        <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+
+{% if courses|length != 0 %}
+    <h2 class="text-center">Course Results</h2><br>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for course in courses %}
+            <div class="modal" id="course-modal-{{ course['id'] }}">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-header">{{ course['name'] }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h4>Reviews</h4>
+                            <hr>
+                            {% for comment in course['comments'] %}
+                                <p>{{ comment }}</p>
+                                {% if not loop.last %}
+                                    <hr>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ course['name'] }}</h5>
+                        <span class="card-body">{{ course['school_course_id'] }}</span>
+                        <p class="card-body"><b>Average Lecture Hours</b>: {{ course['lec_avg'] ?? 'Not enough data...' }}<br>
+                                             <b>Average Homework Hours</b>: {{ course['hw_avg'] ?? 'Not enough data...' }}<br>
+                                             <b>Average Study Hours</b>: {{ course['study_avg'] ?? 'Not enough data...' }}<br>
+                                             <b>Average Difficulty</b>: {{ course['difficulty'] ?? 'Not enough data...' }}
+                        </p>
+                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#course-modal-{{ course['id'] }}">Read Reviews</button>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <br>
+{% endif %}
+    {% if jobs|length != 0 %}
+    <h2 class="text-center">Job Results</h2><br>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for job in jobs %}
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ job['company'] }}</h5>
+                        <span class="card-body">{{ job['name'] }}</span>
+                        <p class="card-body"><b>Average Hours</b>: {{ job['hr_avg'] ?? 'Not enough data...' }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <br>
+    {% endif %}
+    {% if clubs|length != 0 %}
+    <h2 class="text-center">Activity Results</h2><br>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for club in clubs %}
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ club['name'] }}</h5>
+                        <p class="card-body"><b>Average Hours</b>: {{ club['hr_avg'] ?? 'Not enough data...' }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>

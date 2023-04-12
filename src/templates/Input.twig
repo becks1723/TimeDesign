@@ -1,0 +1,203 @@
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <i class="fa-solid fa-x" id="close" onclick="closeModal()"></i>
+
+    <h2 style="color:black;">What would you like to add?</h2>
+    <form name="modal-form">
+      <div class="form-check form-check-inline">
+        <input id="course-radio" class="form-check-input" type="radio" name="flexRadioDefault" value="course" onclick="courseModal()">
+        <label for="course-radio" class="form-check-label" style="color:black;">Course</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input id="job-radio" class="form-check-input" type="radio" name="flexRadioDefault" value="job" onclick="jobModal()">
+        <label for="job-radio" class="form-check-label" style="color:black;">Job</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input id="EC-radio" class="form-check-input" type="radio" name="flexRadioDefault" value="ec" onclick="ecModal()">
+        <label for="EC-radio" class="form-check-label" style="color:black;">Extracurricular</label>
+      </div>
+      <small id="radio-check-small1" class="form-text not-text-muted"></small>
+
+      <div class="form-group">
+        <label style="color:black;">Enter the name of the</label>
+        <label style="color:black;" id="modal-select">[ ]</label>
+        <label style="color:black;"> here:</label>
+        <input type="text" name="name" class="form-control" placeholder="Enter...">
+        <div id="course-id-wrapper" style="display: none;">
+          <label for="course-id">Course ID:</label>
+          <input id="course-id" type="text" name="courseId" class="form-control" placeholder="ITWS-2110">
+        </div>
+        <div id="company-name-wrapper" style="display: none;">
+          <label for="company-name">Company Name:</label>
+          <input id="company-name" type="text" name="companyName" class="form-control" placeholder="Company Name">
+        </div>
+        <small id="emailHelp" class="form-text not-text-muted" style="color:black;">Please wait 1-2 business days for us to verify the addition.</small>
+      </div>
+    </form>
+    <button type="button" class="btn btn-outline-primary" id="modal-sub" onclick="submitted()">Submit</button>
+  </div>
+</div>
+
+<section class="input_body">
+  <h1>Add your reviews here!</h1>
+  <h2>What would you like to add?</h2>
+  <section class="input">
+    <div class="tab">
+      <button class="tablinks" id="coursesbutton" onclick="openSection(event, 'Course')">Course</button>
+      <button class="tablinks" onclick="openSection(event, 'Job')">Job</button>
+      <button class="tablinks" onclick="openSection(event, 'EC')">Extracurricular</button>
+    </div>
+
+    <div id="Course" class="tabcontent">
+      <h3>Adding Course Review</h3>
+      <div class="input_form">
+        <form name="courseForm" method="POST" action="/TimeDesign/input/course">
+          <input type="hidden" name="xsrf_token" value="{{ xsrf_token }}">
+          <div class="form-group">
+            <label for="courseSearch">Course</label>
+            <select id="courseSearch" class="form-control" name="courseId">
+              <option>Please select a course</option>
+              {% for course in courses %}
+                <option value="{{ course.id }}">{{ course.school_course_id }}: {{ course.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="Professor">Enter Professor</label>
+            <input type="text" id="Professor" class="form-control" placeholder="Callahan" name="professor">
+          </div>
+          <div class="form-row">
+            <div class="col">
+              <label for="Lhours">Lecture Hours</label>
+              <input id="Lhours" type="text" class="form-control" placeholder="0" name="lecHours">
+              <small class="form-text not-text-muted">Weekly</small>
+            </div>
+            <div class="col">
+              <label for="Hhours">Homework Hours</label>
+              <input id="Hhours" type="text" class="form-control" placeholder="0" name="hwHours">
+              <small class="form-text not-text-muted">Weekly</small>
+            </div>
+            <div class="col">
+              <label for="Shours">Study Hours</label>
+              <input id="Shours" type="text" class="form-control" placeholder="0" name="studyHours">
+              <small class="form-text not-text-muted">Weekly</small>
+            </div>
+          </div>
+          <p>Rate the difficulty of the course &#40;optional&#41;:</p>
+            <div class="form-group">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="difficulty" id="ExtremelyEasy" value="1">
+              <label class="form-check-label" for="ExtremelyEasy">Extremely Easy</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="difficulty" id="Easy" value="2">
+              <label class="form-check-label" for="Easy">Easy</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="difficulty" id="Medium" value="3">
+              <label class="form-check-label" for="Medium">Medium</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="difficulty" id="Difficult" value="4">
+              <label class="form-check-label" for="Difficult">Difficult</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="difficulty" id="ExtremelyDifficult" value="5">
+              <label class="form-check-label" for="ExtremelyDifficult">Extremely Difficult</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="Comments">Additional Comments</label>
+            <input id="Comments" type="text" class="form-control" placeholder="(Optional)" name="comments">
+          </div>
+          <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+        <div>
+          <p class="bottom-style">Course not found?</p>
+          <button class="button-add" onclick="showModal()"> Add it to the list! </button>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="Job" class="tabcontent">
+      <h3>Adding Job Review</h3>
+      <div class="input_form">
+      <form name="jobForm" method="POST" action="/TimeDesign/input/job">
+        <input type="hidden" name="xsrf_token" value="{{ xsrf_token }}">
+        <div class="form-group">
+          <label for="jobSearch">Job</label>
+          <select id="jobSearch" class="form-control" name="jobId">
+            <option value="-1">Please select a job</option>
+            {% for job in jobs %}
+              <option value="{{ job.id }}">{{ job.company }}: {{ job.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <br>
+        <div class="form-check form-check-inline">
+          <input id="full-time" class="form-check-input" type="radio" name="jobType" value="1">
+          <label for="full-time" class="form-check-label" >Full-Time</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input id="part-time" class="form-check-input" type="radio" name="jobType" value="2">
+          <label for="part-time" class="form-check-label">Part-Time</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input id="work-study" class="form-check-input" type="radio" name="jobType" value="3">
+          <label for="work-study" class="form-check-label">Work-Study</label>
+        </div>
+        <br>
+        <small id="radio-check-small" class="form-text not-text-muted"></small>
+
+        <div class="row">
+          <div class="col">
+            <label for="Hours">Hours</label>
+            <input id="Hours" type="text" class="form-control" placeholder="0" name="hours">
+            <small class="form-text not-text-muted">Weekly</small>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+      </form>
+      </div>
+        <div>
+          <p class="bottom-style">Job not found?</p>
+          <button class="button-add" onclick="showModal()"> Add it to the list! </button>
+        </div>
+    </div>
+
+    <div id="EC" class="tabcontent">
+      <h3>Adding Extracurricular Review</h3>
+      <div class="input_form">
+        <form name="ECForm" method="POST" action="/TimeDesign/input/club">
+          <input type="hidden" name="xsrf_token" value="{{ xsrf_token }}">
+          <div class="form-group">
+            <label for="EC_label">Job</label>
+            <select id="EC_label" class="form-control" name="clubId">
+              <option>Please select an activity</option>
+              {% for club in clubs %}
+                <option value="{{ club.id }}">{{ club.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="RoleEC">Role</label>
+            <input id="RoleEC" type="text" class="form-control" placeholder="President" name="role">
+          </div>
+          <div class="form-group">
+            <label for="HoursEC">Hours</label>
+            <input id="HoursEC" type="text" class="form-control" placeholder="Hours" name="hours">
+            <small class="form-text not-text-muted">Weekly</small>
+          </div>
+          <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+      </div>
+
+      <div>
+        <p class="bottom-style">Extracurricular not found?</p>
+        <button class="button-add" onclick="showModal()"> Add it to the list! </button>
+      </div>
+    </div>
+  </section>
+</section>
+<br>
